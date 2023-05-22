@@ -1,0 +1,39 @@
+syntax="proto3";
+option java_package = "org.sid.examen03.web.grpc.stub";
+message Radar{
+  int64 id=1;
+  int64 vitesseMaximal=2;
+  double longitude=3;
+  double latitude=4;
+}
+
+message GetRadarRequest{
+  int64 id=1;
+}
+
+message GetRadarResponse{
+  Radar radar=1;
+}
+
+message GetListRadarRequest{}
+
+message GetListRadarResponse{
+  repeated Radar radar=1;
+}
+
+message speedViolationRequest{
+  int64 speed=1;
+}
+enum SpeedViolationConfirmation{
+  NOT_VIOLATED=0;
+  VIOLATED=1;
+}
+message speedViolationResponse{
+  SpeedViolationConfirmation speedViolationConfirmation=1;
+}
+
+service RadarService{
+  rpc getRadar(GetRadarRequest) returns (GetRadarResponse);
+  rpc getListRadar(GetListRadarRequest) returns (GetListRadarResponse);
+  rpc speedViolation(speedViolationRequest) returns(speedViolationResponse);
+}
